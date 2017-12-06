@@ -38,19 +38,6 @@ position_rate_xbt = (total_cash/last) / 10
 
 risk = 2.0 # <=> 2%
 
-# update bid price
-
-if wallet_euro < position_rate_euro
-  last_order = File.open("bidprice.txt", "r")
-  last_bidprice = last_order.read.to_f
-  pv = (last-last_bidprice)/last_bidprice*100
-  if pv > risk
-    file = File.open("bidprice.txt","w")
-    file.puts last
-    file.close
-  end
-end
-
 # Buy per step
 if client.private.open_orders["open"].empty? && wallet_euro > 0
   if last > avg
@@ -100,6 +87,19 @@ if client.private.open_orders["open"].empty? && wallet_xbt > 0
     puts last
     puts avg
     puts opts
+  end
+end
+
+# update bid price if pv > risk
+
+if wallet_euro < position_rate_euro
+  last_order = File.open("bidprice.txt", "r")
+  last_bidprice = last_order.read.to_f
+  pv = (last-last_bidprice)/last_bidprice*100
+  if pv > risk
+    file = File.open("bidprice.txt","w")
+    file.puts last
+    file.close
   end
 end
 
