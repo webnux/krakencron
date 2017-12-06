@@ -92,16 +92,15 @@ end
 
 # update bid price if pv > risk
 
-if wallet_euro < position_rate_euro
-  last_order = File.open("bidprice.txt", "r")
-  last_bidprice = last_order.read.to_f
-  pv = (last-last_bidprice)/last_bidprice*100
-  if pv > risk
-    file = File.open("bidprice.txt","w")
-    file.puts last
-    file.close
-  end
+last_order = File.open("bidprice.txt", "r")
+last_bidprice = last_order.read.to_f
+pv = (last-last_bidprice)/last_bidprice*100
+if pv > risk
+  file = File.open("bidprice.txt","w")
+  file.puts last
+  file.close
 end
+
 
 time2 = Time.now
 puts "Current Time : " + time2.inspect
