@@ -83,7 +83,7 @@ if client.private.open_orders["open"].empty? && wallet_xbt > 0
   last_order = File.open("bidprice.txt", "r")
   last_bidprice = last_order.read.to_f
   pv = (last-last_bidprice)/last_bidprice*100
-  if pv < risk
+  if pv < -risk
     if position_rate_xbt <= wallet_xbt
       volume = position_rate_xbt
       volume = volume.floor2(4)
